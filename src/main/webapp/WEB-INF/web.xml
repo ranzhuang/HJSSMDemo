@@ -10,6 +10,12 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring/applicationContext-*.xml</param-value>
     </context-param>
+    <!-- 监听器
+         该监听器的作用是在web容器自动运行，加载spring的相关的配置文件，完成类的初始化工作
+     -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <!-- 配置servlet -->
     <servlet>
         <servlet-name>springmvc</servlet-name>

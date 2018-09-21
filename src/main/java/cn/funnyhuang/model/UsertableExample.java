@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsertableExample {
+    //asc升序,desc降序排列=
     protected String orderByClause;
-
+    //去除重复,true是选择不重复记录,false反之
     protected boolean distinct;
-
+    //条件查询
     protected List<Criteria> oredCriteria;
 
     public UsertableExample() {
