@@ -69,7 +69,7 @@ public class HJUserController  {
         hjUserService.updateByPrimaryKeySelective(usertable);
         return HJResultTypeTool.successNoData();
     }
-
+    
     /**
      * 根据昵称查找用户
      * @param nickName
