@@ -2,15 +2,23 @@ package cn.funnyhuang.controller;
 
 import cn.funnyhuang.Tool.HJResult;
 import cn.funnyhuang.Tool.HJResultTypeTool;
+import cn.funnyhuang.exception.HJCustomException;
+import cn.funnyhuang.exception.HJCustomExceptionEnum;
+import cn.funnyhuang.exception.HJCustomExceptionHandle;
 import cn.funnyhuang.model.Usertable;
 import cn.funnyhuang.model.UsertableExample;
 import cn.funnyhuang.service.HJUserService;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -18,6 +26,8 @@ public class HJUserController  {
 
     @Autowired
     private HJUserService hjUserService;
+    @Autowired
+    private HJCustomExceptionHandle exceptionHandle;
 
     /**
      * 创建用户
@@ -26,9 +36,9 @@ public class HJUserController  {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/creatUser")
+    @RequestMapping("/createUser")
     @ResponseBody
-    public HJResult creatUser(String nickName, String passWord) throws Exception {
+    public HJResult createUser(String nickName, String passWord) throws Exception {
         Usertable usertable = new Usertable();
         usertable.setNickname(nickName);
         usertable.setPassword(passWord);
@@ -45,6 +55,14 @@ public class HJUserController  {
     @RequestMapping("/deleteUser")
     @ResponseBody
     public HJResult deleteUser(Integer userId) throws Exception {
+        try {
+
+        } catch (Exception e) {
+           return exceptionHandle.execptionGet(e);
+        }
+        if (userId == null) {
+            return HJResultTypeTool.errorException(HJCustomExceptionEnum.PARAMETER_ERROR);
+        }
         hjUserService.deleteByPrimaryKey(userId);
         return HJResultTypeTool.successNoData();
     }
@@ -69,7 +87,7 @@ public class HJUserController  {
         hjUserService.updateByPrimaryKeySelective(usertable);
         return HJResultTypeTool.successNoData();
     }
-    
+
     /**
      * 根据昵称查找用户
      * @param nickName
@@ -78,7 +96,7 @@ public class HJUserController  {
      */
     @RequestMapping("/selectUserList")
     @ResponseBody
-    public HJResult seleteUserList(String nickName) throws Exception {
+    public HJResult selectUserList(String nickName) throws Exception {
         UsertableExample usertableExample = new UsertableExample();
         UsertableExample.Criteria criteria = usertableExample.createCriteria();
         criteria.andNicknameLike("%"+(nickName)+"%");
@@ -86,4 +104,74 @@ public class HJUserController  {
         return HJResultTypeTool.success(usertables);
     }
 
+
+    /**
+     * 创建用户
+     * @param jsonStr
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/createUserFromJsonStr")
+    @ResponseBody
+    public HJResult createUserFromJsonStr(@RequestParam(value = "param") String jsonStr) throws Exception {
+        Usertable usertable = JSON.parseObject(jsonStr,Usertable.class);
+        hjUserService.insertSelective(usertable);
+        return HJResultTypeTool.successNoData();
+    }
+
+    /**
+     * 删除用户
+     * @param jsonStr
+     * @return
+     * @throws Exception
+     */
+
+    @RequestMapping("/deleteUserFromJsonStr")
+    @ResponseBody
+    public HJResult deleteUserFromJsonStr(@RequestParam(value = "param") String jsonStr) throws Exception {
+        try {
+
+        } catch (Exception e) {
+            return exceptionHandle.execptionGet(e);
+        }
+        Map<String, Object> map = JSON.parseObject(jsonStr,new TypeReference<Map<String,Object>>(){});
+        if (map.get("userId") == null) {
+            return HJResultTypeTool.errorException(HJCustomExceptionEnum.PARAMETER_ERROR);
+        }
+        hjUserService.deleteByPrimaryKey((Integer) map.get("userId"));
+        return HJResultTypeTool.successNoData();
+    }
+
+
+    /**
+     * 更新用户信息
+     * @param jsonStr json字符串
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/updateUserFromJsonStr")
+    @ResponseBody
+    public HJResult updateUserFromJsonStr(@RequestParam(value = "param") String jsonStr) throws Exception {
+        Usertable usertable = JSON.parseObject(jsonStr,Usertable.class);
+        hjUserService.updateByPrimaryKeySelective(usertable);
+        return HJResultTypeTool.successNoData();
+    }
+
+    /**
+     * 根据昵称查找用户
+     * @param jsonStr
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/selectUserListFromJsonStr")
+    @ResponseBody
+    public HJResult selectUserListFromJsonStr(@RequestParam(value = "param") String jsonStr) throws Exception {
+
+        Map<String,Object> map = JSON.parseObject(jsonStr,new TypeReference<Map<String, Object>>(){});
+        UsertableExample usertableExample = new UsertableExample();
+        UsertableExample.Criteria criteria = usertableExample.createCriteria();
+        criteria.andNicknameLike("%"+(map.get("nickName"))+"%");
+        List<Usertable> usertables = hjUserService.selectByExample(usertableExample);
+        return HJResultTypeTool.success(usertables);
+    }
 }

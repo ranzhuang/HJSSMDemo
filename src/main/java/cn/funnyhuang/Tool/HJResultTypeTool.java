@@ -1,5 +1,7 @@
 package cn.funnyhuang.Tool;
 
+import cn.funnyhuang.exception.HJCustomExceptionEnum;
+
 /**
 
 * @Description:    返回对象工具类
@@ -49,6 +51,19 @@ public class HJResultTypeTool {
         HJResult result = new HJResult();
         result.setCode(code);
         result.setMsg(msg);
+        return result;
+    }
+
+    /**
+     * 返回异常信息，在已知的范围内
+     * @param hjCustomExceptionEnum
+     * @return
+     */
+    public  static  HJResult errorException(HJCustomExceptionEnum hjCustomExceptionEnum) {
+        HJResult result = new HJResult();
+        result.setCode(hjCustomExceptionEnum.getCode());
+        result.setMsg(hjCustomExceptionEnum.getMessage());
+        result.setData(null);
         return result;
     }
 }

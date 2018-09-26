@@ -18,6 +18,7 @@ package cn.funnyhuang.Tool;
 
 */
 public class HJResult<T> {
+
     /*错误码*/
     private Integer code;
     /*错误信息*/
