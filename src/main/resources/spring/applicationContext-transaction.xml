@@ -37,6 +37,9 @@
 
     <!-- 配置aop -->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution (* com.sample.service.impl..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution (* cn.funnyhuang.service.impl..*.*(..))"/>
     </aop:config>
+
+
+
 </beans>

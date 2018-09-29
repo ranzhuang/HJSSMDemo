@@ -23,9 +23,9 @@ public class HJCustomExceptionAspect {
     /**
      * 定义切入的位置
      */
-    @Pointcut("execution(public * cn.funnyhuang.controller.*.*(..))")
+    @Pointcut("execution(public * cn.funnyhuang.controller..*.*(..))")
     public void log() {
-
+        System.out.println("--------log------");
     }
 
     /**
@@ -57,11 +57,7 @@ public class HJCustomExceptionAspect {
             return hjCustomExceptionHandle.execptionGet(e);
         }
 
-        if (result == null) {
-            return proceedingJoinPoint.proceed();
-        } else {
-            return result;
-        }
+        return proceedingJoinPoint.proceed();
     }
 
     /**

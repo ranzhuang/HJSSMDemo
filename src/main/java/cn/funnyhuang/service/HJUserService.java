@@ -6,6 +6,7 @@ import cn.funnyhuang.model.UsertableExample;
 import java.util.List;
 
 public interface HJUserService {
+
     /* 添加用户 */
     public void insertSelective(Usertable record) throws Exception;
     /* 删除用户 */

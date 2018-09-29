@@ -9,7 +9,6 @@ import cn.funnyhuang.model.Usertable;
 import cn.funnyhuang.model.UsertableExample;
 import cn.funnyhuang.service.HJUserService;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +27,7 @@ public class HJUserController  {
     private HJUserService hjUserService;
     @Autowired
     private HJCustomExceptionHandle exceptionHandle;
+
 
     /**
      * 创建用户
@@ -55,13 +55,9 @@ public class HJUserController  {
     @RequestMapping("/deleteUser")
     @ResponseBody
     public HJResult deleteUser(Integer userId) throws Exception {
-        try {
-
-        } catch (Exception e) {
-           return exceptionHandle.execptionGet(e);
-        }
         if (userId == null) {
-            return HJResultTypeTool.errorException(HJCustomExceptionEnum.PARAMETER_ERROR);
+            HJCustomException exception = new HJCustomException(HJCustomExceptionEnum.PARAMETER_ERROR);
+            return exceptionHandle.execptionGet(exception);
         }
         hjUserService.deleteByPrimaryKey(userId);
         return HJResultTypeTool.successNoData();
