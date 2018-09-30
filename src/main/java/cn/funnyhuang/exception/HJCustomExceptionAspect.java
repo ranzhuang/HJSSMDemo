@@ -50,13 +50,11 @@ public class HJCustomExceptionAspect {
      */
     @Around("log()")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        HJResult result = null;
         try {
-
+            proceedingJoinPoint.proceed();
         } catch (Exception e) {
             return hjCustomExceptionHandle.execptionGet(e);
         }
-
         return proceedingJoinPoint.proceed();
     }
 

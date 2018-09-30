@@ -23,8 +23,9 @@
     <!--启用自动代理功能，不启用Aspect就不会生效-->
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
     <!--扫描包-->
-    <context:component-scan base-package="cn.funnyhuang.exception"></context:component-scan>
-
+    <!--<context:component-scan base-package="cn.funnyhuang.exception"></context:component-scan>-->
+    <bean class="cn.funnyhuang.exception.HJCustomExceptionAspect"/>
+    <bean class="cn.funnyhuang.exception.HJCustomExceptionHandle"/>
 
 
 </beans>

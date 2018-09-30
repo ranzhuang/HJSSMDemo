@@ -4,6 +4,7 @@ import cn.funnyhuang.model.Usertable;
 import cn.funnyhuang.model.UsertableExample;
 import org.apache.ibatis.annotations.Param;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 public interface UsertableMapper {
