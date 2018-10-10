@@ -51,6 +51,7 @@ public class HJCustomExceptionAspect {
     @Around("log()")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         try {
+            //执行被通知的方法
             proceedingJoinPoint.proceed();
         } catch (Exception e) {
             return hjCustomExceptionHandle.execptionGet(e);
