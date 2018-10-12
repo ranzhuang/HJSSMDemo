@@ -39,15 +39,15 @@ public class HJUserControllerTest {
     @Test
     public void createUser() throws Exception {
 
-        MultiValueMap valueMap = new LinkedMultiValueMap();
-        valueMap.add("nickName","王大治");
-        valueMap.add("passWord","123456");
-        ResultActions actions = mockMvc.perform(get("/user/createUser")
-                                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                                                .params(valueMap));
-        MvcResult result = actions.andReturn();
-        String string = result.getResponse().getContentAsString();
-        System.out.println("客户端获取到的信息" + string);
+//        MultiValueMap valueMap = new LinkedMultiValueMap();
+//        valueMap.add("nickName","王大治");
+//        valueMap.add("passWord","123456");
+//        ResultActions actions = mockMvc.perform(get("/user/createUser")
+//                                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+//                                                .params(valueMap));
+//        MvcResult result = actions.andReturn();
+//        String string = result.getResponse().getContentAsString();
+//        System.out.println("客户端获取到的信息" + string);
     }
 
     @Test
