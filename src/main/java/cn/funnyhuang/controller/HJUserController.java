@@ -57,7 +57,9 @@ public class HJUserController  {
     public HJResult deleteUser(Integer userId) throws Exception {
         if (userId == null) {
             HJCustomException exception = new HJCustomException(HJCustomExceptionEnum.PARAMETER_ERROR);
-            return exceptionHandle.execptionGet(exception);
+//            return exceptionHandle.execptionGet(exception);
+            //抛出异常
+            throw exception;
         }
         hjUserService.deleteByPrimaryKey(userId);
         return HJResultTypeTool.successNoData();
@@ -128,11 +130,16 @@ public class HJUserController  {
         try {
 
         } catch (Exception e) {
-            return exceptionHandle.execptionGet(e);
+
+//            return exceptionHandle.execptionGet(e);
+            //抛出异常
+            throw e;
         }
         Map<String, Object> map = JSON.parseObject(jsonStr,new TypeReference<Map<String,Object>>(){});
         if (map.get("userId") == null) {
-            return HJResultTypeTool.errorException(HJCustomExceptionEnum.PARAMETER_ERROR);
+//            return HJResultTypeTool.errorException(HJCustomExceptionEnum.PARAMETER_ERROR);
+            //抛出异常
+            throw new HJCustomException(HJCustomExceptionEnum.PARAMETER_ERROR);
         }
         hjUserService.deleteByPrimaryKey((Integer) map.get("userId"));
         return HJResultTypeTool.successNoData();
