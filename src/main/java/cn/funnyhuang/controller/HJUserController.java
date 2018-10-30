@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,19 @@ public class HJUserController  {
     @Autowired
     private HJCustomExceptionHandle exceptionHandle;
 
+    /**
+     * 用户登录
+     * @param nickName
+     * @param passWord
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("logUser")
+    @ResponseBody
+    public HJResult userLog(String nickName, String passWord) throws Exception {
+
+        return HJResultTypeTool.successNoData();
+    }
 
     /**
      * 创建用户

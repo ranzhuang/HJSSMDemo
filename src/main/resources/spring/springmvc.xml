@@ -26,4 +26,5 @@
     <!--<context:component-scan base-package="cn.funnyhuang.exception"></context:component-scan>-->
     <bean class="cn.funnyhuang.exception.HJCustomExceptionAspect"/>
     <bean class="cn.funnyhuang.exception.HJCustomExceptionHandle"/>
+    <bean class="cn.funnyhuang.config.HJSecurityConfig"/>
 </beans>
